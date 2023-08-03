@@ -1,0 +1,37 @@
+// Body
+$body-bg: #f8fafc;
+
+// Typography
+$font-family-sans-serif: 'Nunito', sans-serif;
+$font-size-base: 0.9rem;
+$line-height-base: 1.6;
+
+$primary: #0E6EFD;
+$secondary: #6D757D;
+$success: #198754;
+$info: #0DCAF0;
+$warning: #FFC108;
+$danger: #DC3545;
+$light: #F8F9FA;
+$dark: #000000;
+
+$theme-colors: (
+  "primary":    $primary,
+  "secondary":  $secondary,
+  "success":    $success,
+  "info":       $info,
+  "warning":    $warning,
+  "danger":     $danger,
+  "light":      $light,
+  "dark":       $dark
+);
+
+$ritelgo-primary: #41B04A;
+$ritelgo-secondary: #717171;
+
+$custom-colors: (
+  "ritelgo-primary":    $ritelgo-primary,
+  "ritelgo-secondary":  $ritelgo-secondary,
+);
+
+$theme-colors: map-merge($theme-colors, $custom-colors);
