@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\EmailValidationController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Backroom\Master\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,10 +27,14 @@ Route::middleware('guest')->group(function () {
     Route::post('/login', [LoginController::class, 'login'])->name('login');
 });
 
-Route::get('/email/verify/{id}/{hash}', EmailValidationController::class)->middleware(['auth', 'signed'])->name('verification.verify');
+Route::get('/email/verify/{id}/{hash}', EmailValidationController::class)->middleware(['signed'])->name('verification.verify');
 
 Route::get('/logout', LogoutController::class)->name('logout');
 
 Route::middleware('auth')->group(function () {
     Route::get('/home', HomeController::class)->name('home');
+
+    Route::prefix('master')->as('master.')->group(function () {
+        Route::resource('users',UserController::class);
+    });
 });

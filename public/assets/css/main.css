@@ -379,13 +379,13 @@ h6,
 }
 .breadcrumb-wrapper .breadcrumb li {
   font-size: 14px;
-  color: #365CF5;
+  color: #41B04A;
 }
 .breadcrumb-wrapper .breadcrumb li a {
   color: #5d657b;
 }
 .breadcrumb-wrapper .breadcrumb li a:hover {
-  color: #365CF5;
+  color: #43a94c;
 }
 
 /* ========== Buttons css ========== */

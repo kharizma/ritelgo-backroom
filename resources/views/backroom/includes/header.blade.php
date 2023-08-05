@@ -33,22 +33,22 @@
                                 <div class="author-info flex items-center !p-1">
                                     <div class="content">
                                         <h4 class="text-sm">{{ Auth::user()->name }}</h4>
-                                        <a class="text-black/40 dark:text-white/40 hover:text-black dark:hover:text-white text-xs" href="#">{{ ucwords(Auth::user()->role) }}</a>
+                                        <a class="nav-link text-black/40 dark:text-white/40 hover:text-black dark:hover:text-white text-xs" href="#">{{ ucwords(Auth::user()->role) }}</a>
                                     </div>
                                 </div>
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <a href="#0">
+                                <a href="#0" class="nav-link">
                                     <i class="lni lni-user"></i> Profil Saya
                                 </a>
                             </li>
                             <li>
-                                <a href="#0"> <i class="lni lni-cog"></i> Pengaturan </a>
+                                <a href="#0" class="nav-link"> <i class="lni lni-cog"></i> Pengaturan </a>
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <a href="{{ route('logout') }}" class="text-danger"> <i class="lni lni-exit text-danger"></i> Keluar </a>
+                                <a href="{{ route('logout') }}" class="text-danger nav-link"> <i class="lni lni-exit text-danger"></i> Keluar </a>
                             </li>
                         </ul>
                     </div>

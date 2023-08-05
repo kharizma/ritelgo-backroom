@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('business_outlets', function (Blueprint $table) {
             $table->string('id')->primary();
-            $table->string('user_business_id');
+            $table->string('business_id');
             $table->string('name');
             $table->text('address');
             $table->string('status')->default('non-active'); // active, non-active

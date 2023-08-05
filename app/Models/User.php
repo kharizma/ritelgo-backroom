@@ -2,15 +2,37 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
+
+    public const ROLE_SUPERADMIN    = 'superadmin';
+    public const ROLE_OWNER         = 'owner';
+    public const ROLE_MANAGER       = 'manager';
+    public const ROLE_CASHIER       = 'cashier';
+
+    public const STATUS_ACTIVE      = 'active';
+    public const STATUS_NONACTIVE   = 'non-active';
+    public const STATUS_SUSPEND     = 'suspend';
+    public const STATUS_BLOCK       = 'block';
+
+    public const STATUSES = [
+        self::ROLE_SUPERADMIN,
+        self::ROLE_OWNER,
+        self::ROLE_MANAGER,
+        self::ROLE_CASHIER,
+        
+        self::STATUS_ACTIVE,
+        self::STATUS_NONACTIVE,
+        self::STATUS_SUSPEND,
+        self::STATUS_BLOCK,
+    ];
 
     public $incrementing = false;
     protected $keyType = 'string';
