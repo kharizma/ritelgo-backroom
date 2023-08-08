@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('value');
             $table->integer('order')->default(1);
             $table->timestamps();
+            $table->foreign('package_subscription_id')->references('id')->on('package_subscriptions');
         });
     }
 
@@ -26,6 +27,10 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('package_subscription_details', function (Blueprint $table) {
+            $table->dropForeign(['package_subscription_id']);
+        });
+
         Schema::dropIfExists('package_subscription_details');
     }
 };

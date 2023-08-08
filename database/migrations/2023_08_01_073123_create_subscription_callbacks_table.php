@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('subscription_callbacks', function (Blueprint $table) {
             $table->string('id')->primary();
+            $table->string('subscription_id');
             $table->json('xendit_notification')->nullable();
             $table->string('xendit_callback_id');
             $table->string('xendit_external_id')->nullable();
@@ -41,6 +42,7 @@ return new class extends Migration
             $table->string('xendit_locale')->nullable();
             $table->integer('xendit_adjusted_received_amount')->nullable();
             $table->integer('xendit_fees_paid_amount')->nullable();
+            $table->foreign('subscription_id')->references('id')->on('subscriptions');
         });
     }
 
@@ -49,6 +51,10 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('subscription_callbacks', function (Blueprint $table) {
+            $table->dropForeign(['subscription_id']);
+        });
+
         Schema::dropIfExists('subscription_callbacks');
     }
 };

@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('created_by');
             $table->string('updated_by');
             $table->timestamps();
+            $table->foreign('business_id')->references('id')->on('user_businesses');
+            $table->foreign('business_outlet_id')->references('id')->on('business_outlets');
         });
     }
 
@@ -27,6 +29,11 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('employee_outlets', function (Blueprint $table) {
+            $table->dropForeign(['business_id']);
+            $table->dropForeign(['business_outlet_id']);
+        });
+
         Schema::dropIfExists('employee_outlets');
     }
 };
