@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\EmailValidationController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Backroom\Master\UserController;
+use App\Http\Controllers\Backroom\Master\BusinessTypeController;;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/home', HomeController::class)->name('home');
 
     Route::prefix('master')->as('master.')->group(function () {
-        Route::resource('users',UserController::class);
+        Route::resource('business-types',BusinessTypeController::class)->only([
+            'index', 'store', 'update', 'delete'
+        ]);
+        Route::resource('users',UserController::class)->except([
+            'show','destroy'
+        ]);
     });
 });

@@ -34,11 +34,27 @@
             <li class="nav-item nav-item-has-children">
                 <a
                   href="#0"
-                  class="{{ in_array(\Request::route()->getName(),array('master.users.index','master.users.create','master.users.edit')) ? '' : 'collapsed' }} nav-link"
+                  class="{{ in_array(\Request::route()->getName(),
+                    array(
+                        'master.users.index',
+                        'master.users.create',
+                        'master.users.edit',
+                        'master.business-types.index',
+                        'master.business-types.create',
+                        'master.business-types.edit'
+                    )) ? '' : 'collapsed' }} nav-link"
                   data-bs-toggle="collapse"
                   data-bs-target="#ddmenu_2"
                   aria-controls="ddmenu_2"
-                  aria-expanded="{{ in_array(\Request::route()->getName(),array('master.users.index','master.users.create','master.users.edit')) ? 'true' : 'false' }}"
+                  aria-expanded="{{ in_array(\Request::route()->getName(),
+                    array(
+                        'master.users.index',
+                        'master.users.create',
+                        'master.users.edit',
+                        'master.business-types.index',
+                        'master.business-types.create',
+                        'master.business-types.edit'
+                    )) ? 'true' : 'false' }}"
                   aria-label="Toggle navigation"
                 >
                     <span class="icon">
@@ -55,7 +71,18 @@
                     </span>
                     <span class="text">Master</span>
                 </a>
-                <ul id="ddmenu_2" class="collapse dropdown-nav {{ in_array(\Request::route()->getName(),array('master.users.index','master.users.create','master.users.edit')) ? 'show' : '' }}">
+                <ul id="ddmenu_2" class="collapse dropdown-nav {{ in_array(\Request::route()->getName(),
+                    array(
+                        'master.users.index',
+                        'master.users.create',
+                        'master.users.edit',
+                        'master.business-types.index',
+                        'master.business-types.create',
+                        'master.business-types.edit'
+                    )) ? 'show' : '' }}">
+                    <li>
+                        <a href="{{ route('master.business-types.index') }}" class="nav-link {{ in_array(\Request::route()->getName(),array('master.business-types.index','master.business-types.create','master.business-types.edit')) ? 'text-ritelgo-primary' : '' }}"> Tipe Bisnis </a>
+                    </li>
                     <li>
                         <a href="{{ route('master.users.index') }}" class="nav-link {{ in_array(\Request::route()->getName(),array('master.users.index','master.users.create','master.users.edit')) ? 'text-ritelgo-primary' : '' }}"> Pengguna </a>
                     </li>
