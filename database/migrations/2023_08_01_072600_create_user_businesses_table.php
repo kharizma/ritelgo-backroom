@@ -32,6 +32,7 @@ return new class extends Migration
             $table->string('created_by');
             $table->string('updated_by');
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('business_type_id')->references('id')->on('business_types');
             $table->foreign('province_id')->references('id')->on('provinces');
             $table->foreign('regency_id')->references('id')->on('regencies');

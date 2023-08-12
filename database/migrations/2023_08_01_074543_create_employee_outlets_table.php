@@ -13,14 +13,15 @@ return new class extends Migration
     {
         Schema::create('employee_outlets', function (Blueprint $table) {
             $table->string('id')->primary();
+            $table->string('user_id');
             $table->string('business_id');
             $table->string('business_outlet_id');
-            $table->string('user_id');
             $table->string('created_by');
             $table->string('updated_by');
             $table->timestamps();
             $table->foreign('business_id')->references('id')->on('user_businesses');
             $table->foreign('business_outlet_id')->references('id')->on('business_outlets');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

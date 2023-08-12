@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             PackageSubscriptionSeeder::class,
             BusinessTypeSeeder::class,
+            FeatureSeeder::class,
         ]);
     }
 }

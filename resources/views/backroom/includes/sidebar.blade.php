@@ -41,7 +41,10 @@
                         'master.users.edit',
                         'master.business-types.index',
                         'master.business-types.create',
-                        'master.business-types.edit'
+                        'master.business-types.edit',
+                        'master.package-subscriptions.index',
+                        'master.package-subscriptions.edit',
+                        'master.package-subscription-details.show',
                     )) ? '' : 'collapsed' }} nav-link"
                   data-bs-toggle="collapse"
                   data-bs-target="#ddmenu_2"
@@ -53,7 +56,10 @@
                         'master.users.edit',
                         'master.business-types.index',
                         'master.business-types.create',
-                        'master.business-types.edit'
+                        'master.business-types.edit',
+                        'master.package-subscriptions.index',
+                        'master.package-subscriptions.edit',
+                        'master.package-subscription-details.show',
                     )) ? 'true' : 'false' }}"
                   aria-label="Toggle navigation"
                 >
@@ -78,10 +84,16 @@
                         'master.users.edit',
                         'master.business-types.index',
                         'master.business-types.create',
-                        'master.business-types.edit'
+                        'master.business-types.edit',
+                        'master.package-subscriptions.index',
+                        'master.package-subscriptions.edit',
+                        'master.package-subscription-details.show',
                     )) ? 'show' : '' }}">
                     <li>
                         <a href="{{ route('master.business-types.index') }}" class="nav-link {{ in_array(\Request::route()->getName(),array('master.business-types.index','master.business-types.create','master.business-types.edit')) ? 'text-ritelgo-primary' : '' }}"> Tipe Bisnis </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('master.package-subscriptions.index') }}" class="nav-link {{ in_array(\Request::route()->getName(),array('master.package-subscriptions.index','master.users.create','master.users.edit','master.package-subscription-details.show')) ? 'text-ritelgo-primary' : '' }}"> Paket Langganan </a>
                     </li>
                     <li>
                         <a href="{{ route('master.users.index') }}" class="nav-link {{ in_array(\Request::route()->getName(),array('master.users.index','master.users.create','master.users.edit')) ? 'text-ritelgo-primary' : '' }}"> Pengguna </a>

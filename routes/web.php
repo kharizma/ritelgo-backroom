@@ -6,7 +6,11 @@ use App\Http\Controllers\Auth\EmailValidationController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Backroom\Master\UserController;
-use App\Http\Controllers\Backroom\Master\BusinessTypeController;;
+use App\Http\Controllers\Backroom\Master\BusinessTypeController;
+use App\Http\Controllers\Backroom\Master\PackageSubscriptionController;
+use App\Http\Controllers\Backroom\Master\PackageSubscriptionDetailController;
+
+;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,5 +46,9 @@ Route::middleware('auth')->group(function () {
         Route::resource('users',UserController::class)->except([
             'show','destroy'
         ]);
+        Route::resource('package-subscriptions',PackageSubscriptionController::class)->only([
+            'index', 'store', 'update'
+        ]);
+        Route::resource('package-subscription-details',PackageSubscriptionDetailController::class);
     });
 });

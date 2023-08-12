@@ -29,8 +29,8 @@ return new class extends Migration
             $table->boolean('is_complete_registration')->nullable();
             $table->string('status')->default('non-active'); //active,non-active,suspend,block
             $table->rememberToken();
-            $table->string('created_by')->nullable();
-            $table->string('updated_by')->nullable();
+            $table->string('created_by');
+            $table->string('updated_by');
             $table->timestamps();
         });
     }

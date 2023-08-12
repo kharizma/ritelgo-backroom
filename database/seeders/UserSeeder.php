@@ -31,7 +31,9 @@ class UserSeeder extends Seeder
             'password'                  => Hash::make('pass!'),
             'mobile_phone'              => '628992251659',
             'mobile_phone_verified_at'  => now(),
-            'status'                    => 'active'
+            'status'                    => 'active',
+            'created_by'                => 'seeder',
+            'updated_by'                => 'seeder'
         ]);
 
         $num = User::where('role','superadmin')->count();
@@ -51,7 +53,9 @@ class UserSeeder extends Seeder
             'password'                  => Hash::make('pass!'),
             'mobile_phone'              => '628112550595',
             'mobile_phone_verified_at'  => now(),
-            'status'                    => 'active'
+            'status'                    => 'active',
+            'created_by'                => 'seeder',
+            'updated_by'                => 'seeder'
         ]);
     }
 }

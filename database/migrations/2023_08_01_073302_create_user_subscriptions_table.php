@@ -13,10 +13,12 @@ return new class extends Migration
     {
         Schema::create('user_subscriptions', function (Blueprint $table) {
             $table->id();
+            $table->string('user_id');
             $table->foreignId('package_subscription_detail_id');
             $table->string('parameter')->unique();
             $table->string('value');
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('package_subscription_detail_id')->references('id')->on('package_subscription_details');
         });
     }

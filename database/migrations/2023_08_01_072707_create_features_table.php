@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('package_subscriptions', function (Blueprint $table) {
+        Schema::create('features', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->integer('price')->default(0);
-            $table->integer('price_annual')->default(0);
-            $table->boolean('is_show')->default(true);
-            $table->boolean('is_active')->default(true);
+            $table->string('variable')->unique();
+            $table->boolean('is_technical')->default(false);
+            $table->string('value_type');
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('package_subscriptions');
+        Schema::dropIfExists('features');
     }
 };

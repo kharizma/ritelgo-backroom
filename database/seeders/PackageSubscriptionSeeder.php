@@ -13,25 +13,30 @@ class PackageSubscriptionSeeder extends Seeder
      */
     public function run(): void
     {
-        PackageSubscription::create([
-            'name'      => 'Free Plan',
-            'price'     => 0,
-            'is_show'   => true,
-            'is_active' => true
-        ]);
+        $data = [
+            [
+                'name'          => 'Free Plan',
+                'price'         => 0,
+                'price_annual'  => 0,
+                'is_show'       => true,
+                'is_active'     => true
+            ],
+            [
+                'name'          => 'Bronze Plan',
+                'price'         => 150000,
+                'price_annual'  => 1499000,
+                'is_show'       => true,
+                'is_active'     => true
+            ],
+            [
+                'name'          => 'Silver Plan',
+                'price'         => 250000,
+                'price_annual'  => 2499000,
+                'is_show'       => true,
+                'is_active'     => true
+            ]
+        ];
 
-        PackageSubscription::create([
-            'name'      => 'Bronze Plan',
-            'price'     => 150000,
-            'is_show'   => true,
-            'is_active' => true
-        ]);
-
-        PackageSubscription::create([
-            'name'      => 'Silver Plan',
-            'price'     => 250000,
-            'is_show'   => true,
-            'is_active' => true
-        ]);
+        PackageSubscription::insert($data);
     }
 }

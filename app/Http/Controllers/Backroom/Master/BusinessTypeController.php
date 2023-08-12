@@ -17,10 +17,6 @@ class BusinessTypeController extends Controller
      */
     public function index(Request $request)
     {
-        $model = BusinessType::query()->withCasts([
-            'created_at' => 'date:d F Y H:i:s'
-        ]);
-
         if ($request->ajax()) {
             $model = BusinessType::query()->withCasts([
                 'created_at' => 'date:d F Y H:i:s'

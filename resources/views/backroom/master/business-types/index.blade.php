@@ -40,7 +40,7 @@
 
         <div class="card">
             <div class="card-body">
-                <button type="button" class="btn btn-sm btn-ritelgo-secondary mb-3" data-bs-toggle="modal" data-bs-target="#createModal"><i class="mdi mdi-account-plus me-2"></i><span>Tambah Tipe</span></button>
+                <button type="button" class="btn btn-sm btn-ritelgo-secondary mb-3" data-bs-toggle="modal" data-bs-target="#createModal"><i class="mdi mdi-plus me-2"></i><span>Tambah Tipe</span></button>
                 
                 @if ($errors->any())
                     <div class="alert alert-danger d-flex alert-dismissible fade show" role="alert">

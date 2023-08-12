@@ -14,11 +14,16 @@ return new class extends Migration
         Schema::create('package_subscription_details', function (Blueprint $table) {
             $table->id();
             $table->foreignId('package_subscription_id');
-            $table->string('parameter')->unique();
+            $table->string('custom_name')->nullable();
+            $table->string('default_name');
+            $table->string('variable');
+            $table->boolean('is_technical');
+            $table->string('value_type');
             $table->string('value');
             $table->integer('order')->default(1);
             $table->timestamps();
             $table->foreign('package_subscription_id')->references('id')->on('package_subscriptions');
+            $table->unique(['package_subscription_id','default_name','variable']);
         });
     }
 

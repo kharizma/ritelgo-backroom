@@ -15,17 +15,25 @@ return new class extends Migration
             $table->string('id')->primary();
             $table->string('business_id');
             $table->string('name');
-            $table->char('regency_id', 4);
-            $table->string('regency_name');
-            $table->char('province_id', 2);
-            $table->string('province_name');
-            $table->string('status')->default('non-active'); // active, non-active
+            $table->text('address')->nullable();
+            $table->char('province_id', 2)->nullable();
+            $table->string('province_name')->nullable();
+            $table->char('regency_id', 4)->nullable();
+            $table->string('regency_name')->nullable();
+            $table->char('district_id', 6)->nullable();
+            $table->string('district_name')->nullable();
+            $table->char('village_id', 10)->nullable();
+            $table->string('village_name')->nullable();
+            $table->char('zip_code',5)->nullable();
+            $table->string('status')->default('active'); // active, non-active
             $table->string('created_by');
             $table->string('updated_by');
             $table->timestamps();
             $table->foreign('business_id')->references('id')->on('user_businesses');
             $table->foreign('province_id')->references('id')->on('provinces');
             $table->foreign('regency_id')->references('id')->on('regencies');
+            $table->foreign('district_id')->references('id')->on('districts');
+            $table->foreign('village_id')->references('id')->on('villages');
         });
     }
 

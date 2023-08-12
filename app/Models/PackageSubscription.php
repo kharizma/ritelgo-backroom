@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class PackageSubscription extends Model
 {
@@ -21,7 +22,16 @@ class PackageSubscription extends Model
         'id',
         'name',
         'price',
+        'price_annual',
         'is_show',
         'is_active',
     ];
+
+    /**
+     * Get the details for package subscription.
+     */
+    public function details(): HasMany
+    {
+        return $this->hasMany(PackageSubscriptionDetail::class);
+    }
 }
