@@ -58,6 +58,7 @@
                         <thead>
                             <tr class="table-success" style="height: 30px;">
                                 <th class="text-center">ID</th>
+                                <th class="text-center">STATUS</th>
                                 <th class="text-center">DIBUAT</th>
                                 <th></th>
                             </tr>
@@ -111,7 +112,19 @@
                         <label class="form-label"><span class="text-danger me-1">*</span>Tipe</label>
                         <input type="text" name="id" id="editId" class="form-control" placeholder="Tipe Bisnis" required>
                     </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-3">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" name="is_active" id="editIsActive" value="yes" role="switch">
+                                    <label class="form-check-label">Aktif</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="mdi mdi-close me-2"></i><span>Batal</span></button>
                     <button type="submit" class="btn btn-ritelgo-primary text-white"><i class="mdi mdi-content-save me-2"></i><span>Simpan</span></button>
@@ -126,6 +139,7 @@
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
         $(function() {
@@ -139,6 +153,10 @@
                         name: 'id'
                     },
                     {
+                        data: 'is_active',
+                        name: 'is_active'
+                    },
+                    {
                         data: 'created_at',
                         name: 'created_at'
                     },
@@ -148,7 +166,7 @@
                     },
                 ],
                 columnDefs: [
-                    {"className": "dt-center", "targets": [0,1,2]},
+                    {"className": "dt-center", "targets": [0,1,2,3]},
                 ],
                 order: [
                     [ 0, 'asc' ]
@@ -160,6 +178,7 @@
             var src = $(event.relatedTarget)
 
             $('#editId').val(src.data('id'))
+            src.data('is_active') == true ? $('#editIsActive').prop("checked", true) : $('#editIsActive').prop("checked", false);
 
             var url = "{{ route('master.business-types.update',["business_type" => ":business_type"]) }}";
             url = url.replace(':business_type', src.data('id'));
@@ -170,5 +189,56 @@
         $('#editModal').on('hidden.bs.modal', function(event) {
             location.reload()
         })
+
+        function btnDelete(id){
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            },
+            ).then((result) => {
+                if (result.isConfirmed) {
+                    var url = "{{ route('master.business-types.destroy',["business_type" => ":business_type"]) }}";
+                    url = url.replace(':business_type', id);
+
+                    $.ajax({
+                        type: "DELETE",
+                        url: url,
+                        data:{
+                            "_token": "{{ csrf_token() }}",
+                        },
+                        success: function (data) {
+                            if(data.success){
+                                Swal.fire(
+                                    'Terhapus!',
+                                    'Data Berhasil dihapus',
+                                    "success"
+                                );
+                            }
+
+                            setTimeout(function(){
+                                location.reload();
+                            }, 1000); 
+                        },
+                        error: function (data){
+                            console.log(data);
+                            Swal.fire(
+                                'Gagal',
+                                'Data Gagal dihapus',
+                                'error'
+                            );
+
+                            setTimeout(function(){
+                                location.reload();
+                            }, 1000); 
+                        }       
+                    });
+                }
+            })
+        };
     </script>
 @endpush

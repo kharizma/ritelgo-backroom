@@ -7,8 +7,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Master\BusinessTypes\StoreRequest;
 use App\Http\Requests\Master\BusinessTypes\UpdateRequest;
 use Yajra\DataTables\Facades\DataTables;
-use App\Models\BusinessType;
 use Illuminate\Http\RedirectResponse;
+use App\Models\BusinessType;
+use App\Models\UserBusiness;
 
 class BusinessTypeController extends Controller
 {
@@ -23,6 +24,13 @@ class BusinessTypeController extends Controller
             ]);
 
             return DataTables::of($model)
+                ->editColumn('is_active', function($item){
+                    if($item->is_active){
+                        return '<span class="badge text-bg-success">Aktif</span>';
+                    }else{
+                        return '<span class="badge text-bg-secondary">Tidak Aktif</span>';
+                    }
+                })
                 ->addColumn('action', function($item){
                     return '
                         <div class="dropdown">
@@ -30,12 +38,13 @@ class BusinessTypeController extends Controller
                                 <i class="lni lni-more-alt fw-bold"></i>
                             </button>
                             <ul class="dropdown-menu" style="background-color: #EAEAEA">
-                                <li><a class="dropdown-item text-center" data-bs-toggle="modal" data-bs-target="#editModal" data-id="'.$item->id.'">Ubah</a></li>
+                                <li><a class="dropdown-item text-center" data-bs-toggle="modal" data-bs-target="#editModal" data-id="'.$item->id.'" data-is_active="'.$item->is_active.'">Ubah</a></li>
+                                <li><a class="dropdown-item text-center" onclick="btnDelete(\''.$item->id.'\')">Hapus</a></li>
                             </ul>
                         </div>
                     ';
                 })
-                ->rawColumns(['action'])
+                ->rawColumns(['is_active','action'])
                 ->make(true);
         }
 
@@ -59,8 +68,33 @@ class BusinessTypeController extends Controller
     {
         BusinessType::findOrFail($id);
 
-        BusinessType::where('id',$id)->update($request->validated());
+        $request->is_active == 'yes' ? $is_active = true : $is_active = false;
+
+        $request->merge([
+            'is_active'  => $is_active,
+        ]);
+
+        $request->request->remove('_method');
+        $request->request->remove('_token');
+
+        BusinessType::where('id',$id)->update($request->all());
 
         return redirect()->route('master.business-types.index');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        BusinessType::findOrFail($id);
+
+        $validate = UserBusiness::where('business_type_id',$id)->count();
+
+        if($validate == 0){
+            BusinessType::where('id',$id)->delete();
+        }
+
+        return response()->json(200);
     }
 }

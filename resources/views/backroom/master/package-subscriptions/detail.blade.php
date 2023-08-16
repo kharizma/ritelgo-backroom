@@ -262,7 +262,7 @@
                             if(data.success){
                                 Swal.fire(
                                     'Terhapus!',
-                                    'Data Penugasan Berhasil dihapus',
+                                    'Data Berhasil dihapus',
                                     "success"
                                 );
                             }

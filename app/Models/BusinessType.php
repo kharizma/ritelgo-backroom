@@ -13,6 +13,7 @@ class BusinessType extends Model
     protected $keyType = 'string';
 
     protected $fillable = [
-        'id'
+        'id',
+        'is_active'
     ];
 }

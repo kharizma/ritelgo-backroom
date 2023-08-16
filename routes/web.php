@@ -9,8 +9,7 @@ use App\Http\Controllers\Backroom\Master\UserController;
 use App\Http\Controllers\Backroom\Master\BusinessTypeController;
 use App\Http\Controllers\Backroom\Master\PackageSubscriptionController;
 use App\Http\Controllers\Backroom\Master\PackageSubscriptionDetailController;
-
-;
+use App\Http\Controllers\Backroom\InvoiceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,9 +38,13 @@ Route::get('/logout', LogoutController::class)->name('logout');
 Route::middleware('auth')->group(function () {
     Route::get('/home', HomeController::class)->name('home');
 
+    Route::resource('invoices',InvoiceController::class)->only([
+        'index'
+    ]);
+
     Route::prefix('master')->as('master.')->group(function () {
         Route::resource('business-types',BusinessTypeController::class)->only([
-            'index', 'store', 'update', 'delete'
+            'index', 'store', 'update', 'destroy'
         ]);
         Route::resource('users',UserController::class)->except([
             'show','destroy'

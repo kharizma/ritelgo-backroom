@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('user_mobile_phone');
             $table->string('package_subscription_id');
             $table->string('package_subscription_name');
+            $table->string('price_type');
             $table->integer('package_subscription_price');
             $table->integer('total_amount');
             $table->string('status')->default('unpaid');
