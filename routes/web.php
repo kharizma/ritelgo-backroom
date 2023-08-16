@@ -46,12 +46,17 @@ Route::middleware('auth')->group(function () {
         Route::resource('business-types',BusinessTypeController::class)->only([
             'index', 'store', 'update', 'destroy'
         ]);
+
         Route::resource('users',UserController::class)->except([
-            'show','destroy'
+            'show'
         ]);
+        Route::put('/users/activate/{user}', [UserController::class,'activate'])->name('users.activate');
+        Route::put('/users/deactivate/{user}', [UserController::class,'deactivate'])->name('users.deactivate');
+
         Route::resource('package-subscriptions',PackageSubscriptionController::class)->only([
             'index', 'store', 'update'
         ]);
+
         Route::resource('package-subscription-details',PackageSubscriptionDetailController::class);
     });
 });

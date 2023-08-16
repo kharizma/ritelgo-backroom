@@ -9,6 +9,7 @@ use App\Http\Requests\Master\Users\UpdateRequest as UserUpdateRequest;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Services\UserService;
 
@@ -41,16 +42,47 @@ class UserController extends Controller
                     }
                 })
                 ->addColumn('action', function($item){
-                    return '
-                        <div class="dropdown">
-                            <button class="btn" type="button" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="lni lni-more-alt fw-bold"></i>
-                            </button>
-                            <ul class="dropdown-menu" style="background-color: #EAEAEA">
-                                <li><a class="dropdown-item text-center" href="'.route('master.users.edit',$item->id).'">Ubah</a></li>
-                            </ul>
-                        </div>
-                    ';
+                    if($item->role == User::ROLE_SUPERADMIN AND $item->id != Auth::user()->id){
+                        if($item->status == User::STATUS_ACTIVE){
+                            return '
+                                <div class="dropdown">
+                                    <button class="btn" type="button" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="lni lni-more-alt fw-bold"></i>
+                                    </button>
+                                    <ul class="dropdown-menu" style="background-color: #EAEAEA">
+                                        <li><a class="dropdown-item text-center" href="'.route('master.users.edit',$item->id).'">Ubah</a></li>
+                                        <li><a class="dropdown-item text-center" onclick="btnDeactive(\''.$item->id.'\')">Non-aktifkan</a></li>
+                                        <li><a class="dropdown-item text-center" onclick="btnDelete(\''.$item->id.'\')">Hapus</a></li>
+                                    </ul>
+                                </div>
+                            ';
+                        }elseif($item->status == User::STATUS_NONACTIVE){
+                            return '
+                                <div class="dropdown">
+                                    <button class="btn" type="button" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="lni lni-more-alt fw-bold"></i>
+                                    </button>
+                                    <ul class="dropdown-menu" style="background-color: #EAEAEA">
+                                        <li><a class="dropdown-item text-center" href="'.route('master.users.edit',$item->id).'">Ubah</a></li>
+                                        <li><a class="dropdown-item text-center" onclick="btnActive(\''.$item->id.'\')">Aktifkan</a></li>
+                                        <li><a class="dropdown-item text-center" onclick="btnDelete(\''.$item->id.'\')">Hapus</a></li>
+                                    </ul>
+                                </div>
+                            ';
+                        }
+                    }else{
+                        return '
+                            <div class="dropdown">
+                                <button class="btn" type="button" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="lni lni-more-alt fw-bold"></i>
+                                </button>
+                                <ul class="dropdown-menu" style="background-color: #EAEAEA">
+                                    <li><a class="dropdown-item text-center" href="'.route('master.users.edit',$item->id).'">Ubah</a></li>
+                                </ul>
+                            </div>
+                        ';
+                    }
+                    
                 })
                 ->rawColumns(['status','action'])
                 ->make(true);
@@ -87,6 +119,32 @@ class UserController extends Controller
 
     public function delete($id)
     {
-        return view('backroom.master.users.create');
+        User::findOrFail($id);
+
+        User::where('id',$id)->delete();
+
+        return response()->json(200);
+    }
+
+    public function activate($id)
+    {
+        User::findOrFail($id);
+
+        User::where('id',$id)->update([
+            'status' => User::STATUS_ACTIVE
+        ]);
+
+        return response()->json(200);
+    }
+
+    public function deactivate($id)
+    {
+        User::findOrFail($id);
+
+        User::where('id',$id)->update([
+            'status' => User::STATUS_NONACTIVE
+        ]);
+
+        return response()->json(200);
     }
 }

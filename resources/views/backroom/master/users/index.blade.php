@@ -65,6 +65,7 @@
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
         $(function() {
@@ -111,5 +112,158 @@
                 ]
             });
         });
+
+        function btnActive(id){
+            Swal.fire({
+                title: 'Are you sure?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, active it!'
+            },
+            ).then((result) => {
+                if (result.isConfirmed) {
+                    var url = "{{ route('master.users.activate',["user" => ":user"]) }}";
+                    url = url.replace(':user', id);
+
+                    $.ajax({
+                        type: "PUT",
+                        url: url,
+                        data:{
+                            "_token": "{{ csrf_token() }}",
+                            "_method": "PUT",
+                        },
+                        success: function (data) {
+                            if(data.success){
+                                Swal.fire(
+                                    'Diubah!',
+                                    'Data Berhasil diubah',
+                                    "success"
+                                );
+                            }
+
+                            setTimeout(function(){
+                                location.reload();
+                            }, 1000); 
+                        },
+                        error: function (data){
+                            console.log(data);
+                            Swal.fire(
+                                'Gagal',
+                                'Data Gagal diubah',
+                                'error'
+                            );
+
+                            setTimeout(function(){
+                                location.reload();
+                            }, 1000); 
+                        }       
+                    });
+                }
+            })
+        };
+
+        function btnDeactive(id){
+            Swal.fire({
+                title: 'Are you sure?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, deactive it!'
+            },
+            ).then((result) => {
+                if (result.isConfirmed) {
+                    var url = "{{ route('master.users.deactivate',["user" => ":user"]) }}";
+                    url = url.replace(':user', id);
+
+                    $.ajax({
+                        type: "PUT",
+                        url: url,
+                        data:{
+                            "_token": "{{ csrf_token() }}",
+                            "_method": "PUT",
+                        },
+                        success: function (data) {
+                            if(data.success){
+                                Swal.fire(
+                                    'Diubah!',
+                                    'Data Berhasil diubah',
+                                    "success"
+                                );
+                            }
+
+                            setTimeout(function(){
+                                location.reload();
+                            }, 1000); 
+                        },
+                        error: function (data){
+                            console.log(data);
+                            Swal.fire(
+                                'Gagal',
+                                'Data Gagal diubah',
+                                'error'
+                            );
+
+                            setTimeout(function(){
+                                location.reload();
+                            }, 1000); 
+                        }       
+                    });
+                }
+            })
+        };
+
+        function btnDelete(id){
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            },
+            ).then((result) => {
+                if (result.isConfirmed) {
+                    var url = "{{ route('master.users.destroy',["user" => ":user"]) }}";
+                    url = url.replace(':user', id);
+
+                    $.ajax({
+                        type: "DELETE",
+                        url: url,
+                        data:{
+                            "_token": "{{ csrf_token() }}",
+                        },
+                        success: function (data) {
+                            if(data.success){
+                                Swal.fire(
+                                    'Terhapus!',
+                                    'Data Berhasil dihapus',
+                                    "success"
+                                );
+                            }
+
+                            setTimeout(function(){
+                                location.reload();
+                            }, 1000); 
+                        },
+                        error: function (data){
+                            console.log(data);
+                            Swal.fire(
+                                'Gagal',
+                                'Data Gagal dihapus',
+                                'error'
+                            );
+
+                            setTimeout(function(){
+                                location.reload();
+                            }, 1000); 
+                        }       
+                    });
+                }
+            })
+        };
     </script>
 @endpush
