@@ -42,7 +42,7 @@ class UserController extends Controller
                     }
                 })
                 ->addColumn('action', function($item){
-                    if($item->role == User::ROLE_SUPERADMIN AND $item->id != Auth::user()->id){
+                    if(($item->role == User::ROLE_SUPERADMIN OR $item->role == User::ROLE_OWNER) AND $item->id != Auth::user()->id){
                         if($item->status == User::STATUS_ACTIVE){
                             return '
                                 <div class="dropdown">
