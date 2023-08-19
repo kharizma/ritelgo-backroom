@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 
 class UserService
@@ -48,6 +49,8 @@ class UserService
         $items['role']          = 'superadmin';
         $items['initial_name']  = $this->getInitialName($items['name']);
         $items['mobile_phone']  = '62'.$items['mobile_phone'];
+        $items['created_by']    = Auth::user()->id;
+        $items['updated_by']    = Auth::user()->id;
         
         $user = User::create($items);
 
