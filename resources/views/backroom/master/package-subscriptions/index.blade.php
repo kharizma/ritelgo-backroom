@@ -58,7 +58,7 @@
                         <thead>
                             <tr class="table-success" style="height: 30px;">
                                 <th class="text-center">NAMA</th>
-                                <th class="text-center">HARGA</th>
+                                <th class="text-center">HARGA BULANAN</th>
                                 <th class="text-center">HARGA TAHUNAN</th>
                                 <th class="text-center">DITAMPILKAN</th>
                                 <th class="text-center">STATUS</th>
@@ -89,8 +89,8 @@
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label"><span class="text-danger me-1">*</span>Harga</label>
-                            <input type="number" name="price" class="form-control" placeholder="Harga" required>
+                            <label class="form-label"><span class="text-danger me-1">*</span>Harga Bulanan</label>
+                            <input type="number" name="price" class="form-control" placeholder="Harga Bulanan" required>
                         </div>
 
                         <div class="mb-3">
@@ -102,7 +102,7 @@
                             <div class="col">
                                 <div class="mb-3">
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" name="is_show" value="yes" role="switch">
+                                        <input class="form-check-input" type="checkbox" name="is_show" id="is_show_create" value="yes" role="switch">
                                         <label class="form-check-label">Tampilkan</label>
                                     </div>
                                 </div>
@@ -110,7 +110,7 @@
                             <div class="col">
                                 <div class="mb-3">
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" name="is_active" value="yes" role="switch">
+                                        <input class="form-check-input" type="checkbox" name="is_active" id="is_active_create" value="yes" role="switch">
                                         <label class="form-check-label">Aktifkan</label>
                                     </div>
                                 </div>
@@ -145,8 +145,8 @@
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label"><span class="text-danger me-1">*</span>Harga</label>
-                            <input type="number" name="price" id="price" class="form-control" placeholder="Harga" required>
+                            <label class="form-label"><span class="text-danger me-1">*</span>Harga Bulanan</label>
+                            <input type="number" name="price" id="price" class="form-control" placeholder="Harga Bulanan" required>
                         </div>
 
                         <div class="mb-3">
@@ -263,6 +263,18 @@
             url = url.replace(':package_subscription', src.data('id'));
 
             $('#editForm').attr('action', url);
+        })
+
+        $('#is_active_create').on('change', function(event) {
+            if($('#is_active_create').is(':checked') == false){
+                $('#is_show_create').prop("checked", false)
+            }
+        })
+
+        $('#is_active').on('change', function(event) {
+            if($('#is_active').is(':checked') == false){
+                $('#is_show').prop("checked", false)
+            }
         })
     </script>
 @endpush
