@@ -53,6 +53,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'package_subscription_id',
         'package_subscription_name',
         'valid_until',
+        'last_payment_date',
         'status',
         'created_by',
         'updated_by'

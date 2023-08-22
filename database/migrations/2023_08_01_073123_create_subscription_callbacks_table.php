@@ -29,8 +29,8 @@ return new class extends Migration
             $table->string('xendit_payer_email')->nullable();
             $table->text('xendit_description')->nullable();
             $table->timestamp('xendit_expiry_date')->nullable();
-            $table->integer('xendit_created')->nullable();
-            $table->integer('xendit_updated')->nullable();
+            $table->timestamp('xendit_created')->nullable();
+            $table->timestamp('xendit_updated')->nullable();
             $table->string('xendit_mid_label')->nullable();
             $table->string('xendit_currency')->nullable();
             $table->string('xendit_payment_method')->nullable();

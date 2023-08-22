@@ -13,11 +13,18 @@ return new class extends Migration
     {
         Schema::create('user_subscriptions', function (Blueprint $table) {
             $table->id();
+            $table->string('subscription_id');
+            $table->date('valid_date');
             $table->string('user_id');
             $table->foreignId('package_subscription_detail_id');
-            $table->string('parameter')->unique();
+            $table->string('custom_name')->nullable();
+            $table->string('default_name');
+            $table->string('variable');
+            $table->boolean('is_technical');
+            $table->string('value_type');
             $table->string('value');
             $table->timestamps();
+            $table->foreign('subscription_id')->references('id')->on('subscriptions');
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('package_subscription_detail_id')->references('id')->on('package_subscription_details');
         });
